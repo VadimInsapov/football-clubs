@@ -1,0 +1,292 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: #2E3235;
+    color: #2E3235;
+    font-family: "Roboto Slab", "Times New Roman", serif;
+    font-size: 18px;
+}
+
+.container {
+    margin: 0 auto;
+    width: 700px;
+}
+
+.title {
+    font-weight: 700;
+    text-align: center;
+}
+
+.header__title {
+    margin: 10px 0px 30px;
+    padding: 20px;
+    color: white;
+}
+
+.title--XL {
+    font-size: 42px;
+}
+
+.title--L {
+    font-size: 36px;
+}
+
+.title--M {
+    font-size: 24px;
+}
+
+.box {
+    background: #F4F7F7;
+    border-radius: 10px;
+}
+
+.box--radius0 {
+    border-radius: 0px;
+}
+
+.box--radius3 {
+    border-radius: 3px;
+}
+
+.menu__inner {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    padding: 15px;
+}
+
+.menu__item {
+    width: 33%;
+    margin: 0px 10px;
+}
+
+.button {
+    font-family: "Roboto Slab", "Times New Roman", serif;
+    font-size: 18px;
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    border-radius: 3px;
+    text-align: center;
+    border: none;
+    color: white;
+    text-decoration: none;
+}
+
+.form__button {
+    width: 100%;
+}
+
+.button--theme-green {
+    background: #75a54c;
+}
+
+.button--theme-orange {
+    background: #f29515;
+}
+
+.button--theme-red {
+    background: #f44336;
+}
+
+.button--theme-gray {
+    background: #96A0A9;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.club__inner {
+    display: flex;
+    margin-bottom: 10px;
+    padding: 35px 15px;
+}
+
+.club-info__top {
+    display: flex;
+    align-items: center;
+}
+
+.club__logo {
+    width: 150px;
+    height: 95px;
+}
+
+.img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+.club__info {
+    padding-left: 10px;
+}
+
+.club__title {
+    text-align: left;
+    margin-bottom: 13px;
+}
+
+.club__param {
+    margin-bottom: 3px;
+}
+
+.link {
+    color: #2E3235;
+    text-decoration: none;
+}
+
+.link:hover {
+    color: #f29515;
+}
+
+.club-info__inner {
+    position: relative;
+    padding: 35px 25px;
+}
+
+.club-info__logo {
+    width: 284px;
+    height: 230px;
+}
+
+.club-info__content {
+    font-size: 24px;
+    padding-top: 36px;
+}
+
+.club-info__title {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.club-info__param {
+    margin-bottom: 15px;
+}
+
+.club-info__link {
+    position: absolute;
+    bottom: 20px;
+    right: 25px;
+}
+
+.popup {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    top: 0;
+    left: 0;
+    /*opacity: 0;*/
+    /*visibility: hidden;*/
+    /*transition: all 0.5s ease 0s;*/
+}
+
+.popup__area {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.popup__body {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 10px;
+}
+
+.popup__content {
+    max-width: 800px;
+    padding: 36px;
+    position: relative;
+}
+
+.popup__close {
+    position: absolute;
+    right: 14px;
+    top: 12px;
+    font-size: 22px;
+    color: black;
+    text-decoration: none;
+}
+
+.popup:target {
+    opacity: 1;
+    visibility: visible;
+}
+
+#block_close_popup {
+    position: fixed;
+}
+
+.form {
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+}
+
+.form__title {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 22px;
+}
+
+.form__item {
+    margin-bottom: 10px;
+}
+
+.form__label {
+    font-size: 20px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.form__label:hover {
+    cursor: pointer;
+}
+
+.form__input {
+    font-family: "Roboto Slab", "Times New Roman", serif;
+    font-size: 18px;
+    min-width: 350px;
+}
+
+.form__input {
+    color: #2E3235;
+    cursor: pointer;
+}
+
+.form__input--text {
+    padding: 5px;
+    background: rgba(0, 0, 0, 0.0);
+    border: none;
+    border-bottom: 2px solid;
+}
+
+input:focus {
+    outline: none;
+    border: 2px solid gray;
+}
+
+.form__submit-block {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.button--w-70 {
+    width: 70%;
+}
