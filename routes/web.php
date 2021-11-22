@@ -13,11 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[\App\Http\Controllers\FootballClubController::class, 'index']);
-Route::get('/clubs',[\App\Http\Controllers\FootballClubController::class, 'index']);
-Route::get('/clubs/create',[\App\Http\Controllers\FootballClubController::class, 'create']);
-Route::post('/clubs',[\App\Http\Controllers\FootballClubController::class, 'store']);
-Route::get('/clubs/{club}',[\App\Http\Controllers\FootballClubController::class, 'show']);
-Route::get('/clubs/{club}/edit',[\App\Http\Controllers\FootballClubController::class, 'edit']);
-Route::patch('/clubs/{club}',[\App\Http\Controllers\FootballClubController::class, 'update']);
-Route::delete('/clubs/{club}',[\App\Http\Controllers\FootballClubController::class, 'destroy']);
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
