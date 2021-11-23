@@ -22,4 +22,8 @@ class FootballClub extends Model
     {
         return $this->belongsTo(ClubHead::class);
     }
+    public function user()
+    {
+        return $this->belongsto(User::class);
+    }
 }
