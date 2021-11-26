@@ -32,6 +32,6 @@
                 @endif
             </div>
         </x-club-info__content>
-        <a href={{ route('index') }} class="link club-info__link">Назад</a>
+        <a class="link club-info__link"  href={{ route('user.index', ['user' =>  $user]) }}>Назад</a>
     </x-club-info>
 </x-app-layout>

@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\ClubHead;
 use App\Models\FootballClub;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class FootballClubController extends Controller
 {
@@ -13,13 +17,19 @@ class FootballClubController extends Controller
         $clubs = FootballClub::all();
         return view('football_clubs.index', compact('clubs'));
     }
-
+    public function indexByUser(User $user)
+    {
+        $clubs = FootballClub::where('user_id', $user->id)->get();
+        $currentUser = $user;
+        return view('football_clubs.index', compact('clubs', 'currentUser'));
+    }
     public function create()
     {
         $club = new FootballClub();
         $head = new ClubHead();
         $club->club_head_id = $head->id;
-        return view('football_clubs.create', compact('club'));
+        $user = Auth::user();
+        return view('football_clubs.create', compact('club','user'));
     }
 
     public function store(Request $request)
@@ -34,21 +44,28 @@ class FootballClubController extends Controller
         $club->date_created = request('date');
         $club->club_head_id = $lastHead->id;
         $club->save();
-        return redirect('/clubs');;
+        return redirect(route('index'));
     }
 
     public function show(FootballClub $club)
     {
-        return view('football_clubs.show', compact('club'));
+        if(!$this->canEdit($club)) return response("You can't see it", 403);
+        $user = Auth::user();
+        return view('football_clubs.show', compact('club', 'user'));
     }
 
     public function edit(FootballClub $club)
     {
-        return view('football_clubs.edit', compact('club'));
+        if(!$this->canEdit($club)) return response("You can't edit it", 403);
+        $user = Auth::user();
+        return view('football_clubs.edit', compact('club', 'user'));
     }
+
 
     public function update(FootballClub $club, Request $request)
     {
+        if(!$this->canEdit($club)) return response("You can't update it", 403);
+
         $data = $this->validatedData();
         $club->name = request('name');
         $club->country = request('country');
@@ -57,15 +74,24 @@ class FootballClubController extends Controller
         $club->date_created = request('date');
         $this->setLogo($club, $request);
         $club->update();
-        return redirect('/clubs');
+        return redirect(route('index'));
     }
 
     public function destroy(FootballClub $club)
     {
+        if(!$this->canEdit($club)) return response("You can't destroy  it", 403);
         $club->delete();
-        return redirect('/clubs');
+        return redirect(route('index'));
     }
 
+    public function canEdit(FootballClub $club)
+    {
+        return Gate::allows('edit-club', $club);
+    }
+    public function canAdd()
+    {
+        return Gate::allows('add-club');
+    }
     public function validatedData()
     {
         return request()->validate([

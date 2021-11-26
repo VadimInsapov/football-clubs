@@ -3,7 +3,7 @@
 <x-head></x-head>
 <body>
 <x-popup>
-    <a class="popup__close" href={{route('index')}}>X</a>
+    <a class="popup__close"  href={{ route('user.index', ['user' =>  $user]) }}>X</a>
     <form class="form" action={{route('update', ['club' => $club->id])}} method="post" enctype="multipart/form-data">
         @method('PATCH')
         {{csrf_field()}}
