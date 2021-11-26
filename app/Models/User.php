@@ -45,4 +45,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(FootballClub::class);
     }
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
 }

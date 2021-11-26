@@ -2,13 +2,29 @@
     <div class="menu">
         <div class="box box--radius0">
             <div class="menu__inner">
+                @if(Auth::user()->id==$club->user_id)
                 <a class="button menu__item button--theme-orange" href={{ route('edit', ['club' =>  $club->id]) }}>Редактировать</a>
-                <form class="form menu__item" action={{ route('destroy', ['club' =>  $club->id]) }} method="post">
-                    @method('DELETE')
-                    @csrf
-                    <button class="form__button button  button--theme-red" href="/clubs/{{$club->id}}/edit">Удалить
-                    </button>
-                </form>
+                @if(!$club->deleted_at)
+                        <form class="form menu__item"
+                              action={{ route('destroy', ['club' =>  $club->id]) }} method="post">
+                            @method('DELETE')
+                            @csrf
+                            <button class="form__button button  button--theme-red">Удалить</button>
+                        </form>
+                    @endif
+                @endif
+                @if(Auth::user()->is_admin)
+                    <form class="form menu__item"
+                          action={{ route('admin.destroy', ['club' =>  $club->id]) }} method="post">
+                        @method('DELETE')
+                        @csrf
+                        <button class="form__button button  button--theme-red">Удалить на всегда</button>
+                    </form>
+                @endif
+                @if($club->deleted_at)
+                    <a class="button menu__item button--theme-green"
+                       href={{ route('restore', ['clubId' =>  $club->id]) }}>Восстановить</a>
+                @endif
             </div>
         </div>
     </div>
@@ -32,6 +48,6 @@
                 @endif
             </div>
         </x-club-info__content>
-        <a class="link club-info__link"  href={{ route('user.index', ['user' =>  $user]) }}>Назад</a>
+        <a class="link club-info__link" href={{ route('user.index', ['user' =>  $user]) }}>На основную</a>
     </x-club-info>
 </x-app-layout>

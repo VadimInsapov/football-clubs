@@ -17,23 +17,20 @@ class FootballClubController extends Controller
         $clubs = FootballClub::all();
         return view('football_clubs.index', compact('clubs'));
     }
-    public function indexByUser(User $user)
-    {
-        $clubs = FootballClub::where('user_id', $user->id)->get();
-        $currentUser = $user;
-        return view('football_clubs.index', compact('clubs', 'currentUser'));
-    }
+
     public function create()
     {
+        $user = Auth::user();
         $club = new FootballClub();
         $head = new ClubHead();
         $club->club_head_id = $head->id;
-        $user = Auth::user();
-        return view('football_clubs.create', compact('club','user'));
+        return view('football_clubs.create', compact('club', 'user'));
     }
 
     public function store(Request $request)
     {
+        $user = Auth::user();
+
         $data = $this->validatedData();
         $lastHead = $this->getNewHeader();
 
@@ -43,20 +40,22 @@ class FootballClubController extends Controller
         $club->country = request('country');
         $club->date_created = request('date');
         $club->club_head_id = $lastHead->id;
+        $club->user_id = $user->id;
+
         $club->save();
-        return redirect(route('index'));
+        return redirect(route('user.index', ['user' => $user]));
     }
 
-    public function show(FootballClub $club)
+    public function show($clubId)
     {
-        if(!$this->canEdit($club)) return response("You can't see it", 403);
         $user = Auth::user();
+        $club = FootballClub::withTrashed()->find($clubId);
         return view('football_clubs.show', compact('club', 'user'));
     }
 
     public function edit(FootballClub $club)
     {
-        if(!$this->canEdit($club)) return response("You can't edit it", 403);
+        if (!$this->canEdit($club)) return response("You can't edit it", 403);
         $user = Auth::user();
         return view('football_clubs.edit', compact('club', 'user'));
     }
@@ -64,7 +63,7 @@ class FootballClubController extends Controller
 
     public function update(FootballClub $club, Request $request)
     {
-        if(!$this->canEdit($club)) return response("You can't update it", 403);
+        if (!$this->canEdit($club)) return response("You can't update it", 403);
 
         $data = $this->validatedData();
         $club->name = request('name');
@@ -79,19 +78,36 @@ class FootballClubController extends Controller
 
     public function destroy(FootballClub $club)
     {
-        if(!$this->canEdit($club)) return response("You can't destroy  it", 403);
+        if (!$this->canEdit($club)) return response("You can't destroy  it", 403);
         $club->delete();
-        return redirect(route('index'));
+        $user = Auth::user();
+        return redirect(route('user.index', ['user' => $user]));
+    }
+
+    public function destroyByAdmin(FootballClub $club)
+    {
+        $club->forceDelete();
+        $user = Auth::user();
+        return redirect(route('user.index', ['user' => $user]));
+    }
+
+    public function restore($clubId)
+    {
+        FootballClub::withTrashed()->find($clubId)->restore();
+        $user = Auth::user();
+        return redirect(route('user.index', ['user' => $user]));
     }
 
     public function canEdit(FootballClub $club)
     {
         return Gate::allows('edit-club', $club);
     }
+
     public function canAdd()
     {
         return Gate::allows('add-club');
     }
+
     public function validatedData()
     {
         return request()->validate([
