@@ -28,7 +28,8 @@ Route::middleware('auth')->group(function (){
 
     Route::get('/users/{user:name}',[\App\Http\Controllers\UserController::class, 'indexByUser'])->name('user.index');
     Route::get('/users',[\App\Http\Controllers\UserController::class, 'index'])->name('users.index');
-
+    Route::get('/users/{userId}/subscribe',[\App\Http\Controllers\UserController::class, 'subscribe'])->name('user.subscribe');
+    Route::get('/users/{userId}/unsubscribe',[\App\Http\Controllers\UserController::class, 'unsubscribe'])->name('user.unsubscribe');
 
     Route::get('/', function () {
         return view('welcome');

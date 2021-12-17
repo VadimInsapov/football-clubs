@@ -29,6 +29,7 @@ class CreateFootballClubsTable extends Migration
             $table->id();
             $table->string('name')->comment('Название клуба');
             $table->string('country')->comment('Страна в которой клуб играет');
+            $table->string('logo')->nullable();
             $table->date('date_created')->nullable()->comment('Дата основания клуба');
             $table->foreignId('club_head_id')->constrained('club_heads')->nullable()->comment('Глава клуба');
             $table->timestamps();

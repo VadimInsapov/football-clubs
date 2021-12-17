@@ -73,7 +73,8 @@ class FootballClubController extends Controller
         $club->date_created = request('date');
         $this->setLogo($club, $request);
         $club->update();
-        return redirect(route('index'));
+        $user = Auth::user();
+        return redirect(route('user.index', ['user' => $user]));
     }
 
     public function destroy(FootballClub $club)

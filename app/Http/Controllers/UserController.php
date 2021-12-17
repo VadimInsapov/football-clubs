@@ -6,6 +6,7 @@ use App\Models\FootballClub;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -27,5 +28,17 @@ class UserController extends Controller
     {
         $users = User::all();
         return view('users.index', compact('users'));
+    }
+    public function subscribe($userId)
+    {
+        $user = User::find($userId);
+        Auth::user()->addFriend($user);
+        return Redirect::back();
+    }
+    public function unsubscribe($userId)
+    {
+        $user = User::find($userId);
+        Auth::user()->removeFriend($user);
+        return Redirect::back();
     }
 }

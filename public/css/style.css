@@ -307,10 +307,16 @@ input:focus {
     width: 70%;
 }
 .user__inner{
+    align-items: center;
     display: flex;
     margin-bottom: 10px;
     padding: 25px
 }
 .user__extra{
     margin-left: auto;
+    width: 50%;
+}
+.extra{
+    float: right;
+    width: 60%;
 }

@@ -3,8 +3,8 @@
         <div class="box box--radius0">
             <div class="menu__inner">
                 @if(Auth::user()->id==$club->user_id)
-                <a class="button menu__item button--theme-orange" href={{ route('edit', ['club' =>  $club->id]) }}>Редактировать</a>
-                @if(!$club->deleted_at)
+                    <a class="button menu__item button--theme-orange" href={{ route('edit', ['club' =>  $club->id]) }}>Редактировать</a>
+                    @if(!$club->deleted_at)
                         <form class="form menu__item"
                               action={{ route('destroy', ['club' =>  $club->id]) }} method="post">
                             @method('DELETE')
