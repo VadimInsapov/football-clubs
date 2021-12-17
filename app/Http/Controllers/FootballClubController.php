@@ -50,17 +50,15 @@ class FootballClubController extends Controller
     {
         $user = Auth::user();
         $club = FootballClub::withTrashed()->find($clubId);
-        return view('football_clubs.show', compact('club', 'user'));
+        $matches = $club->matches()->get();
+        return view('football_clubs.show', compact('club', 'user','matches'));
     }
-
     public function edit(FootballClub $club)
     {
         if (!$this->canEdit($club)) return response("You can't edit it", 403);
         $user = Auth::user();
         return view('football_clubs.edit', compact('club', 'user'));
     }
-
-
     public function update(FootballClub $club, Request $request)
     {
         if (!$this->canEdit($club)) return response("You can't update it", 403);
@@ -76,7 +74,6 @@ class FootballClubController extends Controller
         $user = Auth::user();
         return redirect(route('user.index', ['user' => $user]));
     }
-
     public function destroy(FootballClub $club)
     {
         if (!$this->canEdit($club)) return response("You can't destroy  it", 403);
@@ -84,7 +81,6 @@ class FootballClubController extends Controller
         $user = Auth::user();
         return redirect(route('user.index', ['user' => $user]));
     }
-
     public function destroyByAdmin(FootballClub $club)
     {
         $club->forceDelete();

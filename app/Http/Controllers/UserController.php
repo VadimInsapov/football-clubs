@@ -24,21 +24,31 @@ class UserController extends Controller
         $currentUser = $user;
         return view('football_clubs.index', compact('clubs', 'currentUser'));
     }
+
     public function index()
     {
         $users = User::all();
         return view('users.index', compact('users'));
     }
+
     public function subscribe($userId)
     {
         $user = User::find($userId);
         Auth::user()->addFriend($user);
         return Redirect::back();
     }
+
     public function unsubscribe($userId)
     {
         $user = User::find($userId);
         Auth::user()->removeFriend($user);
         return Redirect::back();
+    }
+
+    public function ribbon($userId)
+    {
+        $user = User::find($userId);
+        $matches = $user->matchesByFriends();
+        return view('users.ribbon', compact('matches'));
     }
 }

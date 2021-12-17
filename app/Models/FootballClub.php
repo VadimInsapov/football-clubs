@@ -24,6 +24,10 @@ class FootballClub extends Model
     }
     public function user()
     {
-        return $this->belongsto(User::class);
+        return $this->belongsTo(User::class);
+    }
+    public function matches()
+    {
+        return $this->hasMany(MyMatch::class);
     }
 }

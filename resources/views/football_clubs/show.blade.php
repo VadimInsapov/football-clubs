@@ -25,6 +25,8 @@
                     <a class="button menu__item button--theme-green"
                        href={{ route('restore', ['clubId' =>  $club->id]) }}>Восстановить</a>
                 @endif
+                <a class="button menu__item button--theme-green"
+                   href={{route('match.create', ['clubId' =>  $club->id])}}>Добавить матч</a>
             </div>
         </div>
     </div>
@@ -50,4 +52,31 @@
         </x-club-info__content>
         <a class="link club-info__link" href={{ route('user.index', ['user' =>  $user]) }}>На основную</a>
     </x-club-info>
+    <div class="matches">
+        <h1 class="matches__title title title--M">Матчи - вспомогательные объекты</h1>
+        @forelse($matches as $match)
+            <div class="match">
+                @if(Auth::user()->isFriend($match->user()))
+                    <div class="box box--radius3 box--black-theme">
+                        @else
+                            <div class="box box--radius3">
+                                @endif
+                                <div class="match__inner">
+                                    <div class="match__info">
+                                        Стадион: {{$match->stadium}}
+                                    </div>
+                                    <div class="match__info">
+                                        Дата игры: {{ $match->getDateGame()}}
+                                    </div>
+                                    <div class="match__info">
+                                        Кто добавил: {{$match->user()->name}}
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    @empty
+                        <strong class="clubs-list__error">Не найдены матчи</strong>
+                    @endforelse
+            </div>
+    </div>
 </x-app-layout>

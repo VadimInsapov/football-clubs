@@ -30,6 +30,11 @@ Route::middleware('auth')->group(function (){
     Route::get('/users',[\App\Http\Controllers\UserController::class, 'index'])->name('users.index');
     Route::get('/users/{userId}/subscribe',[\App\Http\Controllers\UserController::class, 'subscribe'])->name('user.subscribe');
     Route::get('/users/{userId}/unsubscribe',[\App\Http\Controllers\UserController::class, 'unsubscribe'])->name('user.unsubscribe');
+    Route::get('/users/{userId}/ribbon',[\App\Http\Controllers\UserController::class, 'ribbon'])->name('user.ribbon');
+
+
+    Route::get('/matches/{clubId}/create',[\App\Http\Controllers\MatchController::class, 'create'])->name('match.create');
+    Route::post('/matches/{clubId}',[\App\Http\Controllers\MatchController::class, 'store'])->name('match.store');
 
     Route::get('/', function () {
         return view('welcome');

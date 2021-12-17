@@ -24,7 +24,10 @@ body {
     padding: 20px;
     color: white;
 }
-
+.matches__title{
+    padding: 20px;
+    color: white;
+}
 .title--XL {
     font-size: 42px;
 }
@@ -40,6 +43,10 @@ body {
 .box {
     background: #F4F7F7;
     border-radius: 10px;
+}
+.box--black-theme{
+    background: rgb(22, 22, 22);
+    color: white;
 }
 
 .box--radius0 {
@@ -319,4 +326,14 @@ input:focus {
 .extra{
     float: right;
     width: 60%;
+}
+.match__inner{
+    padding: 20px;
+    margin-bottom: 10px;
+}
+.match__info{
+    padding-bottom: 10px;
+}
+.match__info:nth-last-child(0){
+    padding-bottom: 0px;
 }
