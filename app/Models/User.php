@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Arr;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Support\Collection;
 use phpDocumentor\Reflection\Types\Array_;
 
@@ -89,8 +89,12 @@ class User extends Authenticatable
         $user->friends()->detach($this->id);
     }
 
-    public function isFriend(User $user)
+    public function getFriend(User $user)
     {
         return $this->friends()->find($user);
+    }
+    public function isFriend(User $user)
+    {
+        return ($this->friends()->find($user) == null) ? false : true;
     }
 }

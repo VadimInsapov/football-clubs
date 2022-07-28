@@ -17,7 +17,7 @@ class MyMatch extends Model
 
     public function football_club()
     {
-        return $this->belongsTo(FootballClub::class);
+        return $this->belongsTo(FootballClub::class)->get()[0];
     }
 
     public function user()

@@ -12,8 +12,14 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-nav-link :href="route('user.info')" :active="request()->routeIs('dashboard')">
+                        {{ __('Мои данные') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('dashboard')">
+                        {{ __('Пользователи') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('user.index', ['user' => Auth::user()->name])" :active="request()->routeIs('dashboard')">
+                        {{ __('Мои объекты') }}
                     </x-nav-link>
                 </div>
             </div>

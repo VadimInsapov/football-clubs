@@ -51,4 +51,8 @@ class UserController extends Controller
         $matches = $user->matchesByFriends();
         return view('users.ribbon', compact('matches'));
     }
+    public function giveInfo(){
+        $token = Auth::user()->token;
+        return view('users.info', compact('token'));
+    }
 }

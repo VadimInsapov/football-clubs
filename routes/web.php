@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\APIFootballClubController;
+use App\Http\Controllers\FootballClubController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-
+use \App\Http\Controllers;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,24 +20,26 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function (){
 //    Route::get('/clubs',[\App\Http\Controllers\FootballClubController::class, 'index'])->name('index');
-    Route::get('/clubs/create',[\App\Http\Controllers\FootballClubController::class, 'create'])->name('create');
-    Route::post('/clubs',[\App\Http\Controllers\FootballClubController::class, 'store'])->name('store');
-    Route::get('/clubs/{clubId}',[\App\Http\Controllers\FootballClubController::class, 'show'])->name('show');
-    Route::get('/clubs/{club}/edit',[\App\Http\Controllers\FootballClubController::class, 'edit'])->name('edit');
-    Route::patch('/clubs/{club}',[\App\Http\Controllers\FootballClubController::class, 'update'])->name('update');
-    Route::delete('/clubs/{club}',[\App\Http\Controllers\FootballClubController::class, 'destroy'])->name('destroy');
-    Route::delete('/clubs/{club}/admin',[\App\Http\Controllers\FootballClubController::class, 'destroyByAdmin'])->name('admin.destroy');
-    Route::get('/clubs/{clubId}/restore',[\App\Http\Controllers\FootballClubController::class, 'restore'])->name('restore');
+    Route::get('/clubs/create',[FootballClubController::class, 'create'])->name('create');
+    Route::post('/clubs',[FootballClubController::class, 'store'])->name('store');
+    Route::get('/clubs/{clubId}',[FootballClubController::class, 'show'])->name('show');
+    Route::get('/clubs/{club}/edit',[FootballClubController::class, 'edit'])->name('edit');
+    Route::patch('/clubs/{club}',[FootballClubController::class, 'update'])->name('update');
+    Route::delete('/clubs/{club}',[FootballClubController::class, 'destroy'])->name('destroy');
+    Route::delete('/clubs/{club}/admin',[FootballClubController::class, 'destroyByAdmin'])->name('admin.destroy');
+    Route::get('/clubs/{clubId}/restore',[FootballClubController::class, 'restore'])->name('restore');
 
-    Route::get('/users/{user:name}',[\App\Http\Controllers\UserController::class, 'indexByUser'])->name('user.index');
-    Route::get('/users',[\App\Http\Controllers\UserController::class, 'index'])->name('users.index');
-    Route::get('/users/{userId}/subscribe',[\App\Http\Controllers\UserController::class, 'subscribe'])->name('user.subscribe');
-    Route::get('/users/{userId}/unsubscribe',[\App\Http\Controllers\UserController::class, 'unsubscribe'])->name('user.unsubscribe');
-    Route::get('/users/{userId}/ribbon',[\App\Http\Controllers\UserController::class, 'ribbon'])->name('user.ribbon');
+    Route::get('/user/info',[UserController::class, 'giveInfo'])->name('user.info');
+    Route::get('/user/{user:name}',[UserController::class, 'indexByUser'])->name('user.index');
+    Route::get('/users',[UserController::class, 'index'])->name('users.index');
+    Route::get('/user/{userId}/subscribe',[UserController::class, 'subscribe'])->name('user.subscribe');
+    Route::get('/user/{userId}/unsubscribe',[UserController::class, 'unsubscribe'])->name('user.unsubscribe');
+    Route::get('/user/{userId}/ribbon',[UserController::class, 'ribbon'])->name('user.ribbon');
 
 
     Route::get('/matches/{clubId}/create',[\App\Http\Controllers\MatchController::class, 'create'])->name('match.create');
     Route::post('/matches/{clubId}',[\App\Http\Controllers\MatchController::class, 'store'])->name('match.store');
+
 
     Route::get('/', function () {
         return view('welcome');

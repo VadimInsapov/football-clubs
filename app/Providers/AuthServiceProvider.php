@@ -4,10 +4,9 @@ namespace App\Providers;
 
 use App\Models\FootballClub;
 use App\Models\User;
-use Faker\Core\Number;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-
+use Laravel\Passport\Passport;
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -27,7 +26,9 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
+        if (! $this->app->routesAreCached()) {
+            Passport::routes();
+        }
         Gate::define('see-club', function (User $user, FootballClub $club) {
             return $user->id === $club->user_id;
         });
